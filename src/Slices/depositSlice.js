@@ -25,7 +25,23 @@ export const fetchDepositsBySupabaseId = createAsyncThunk('deposits/fetchBySupab
 
 export const createDeposit = createAsyncThunk('deposits/create', async (payload, thunkAPI) => {
   try {
-    const res = await axios.post(DEPOSITS_URL, payload);
+    const formData = new FormData();
+
+    formData.append('supabaseId', payload.supabaseId);
+    formData.append('phoneNo', payload.phoneNo);
+    formData.append('amount', payload.amount);
+    formData.append('method', payload.method);
+    if (payload.status !== undefined) {
+      formData.append('status', payload.status);
+    }
+
+    if (payload.image) {
+      formData.append('image', payload.image);
+    }
+
+    const res = await axios.post(DEPOSITS_URL, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
     return res.data;
   } catch (e) {
     return thunkAPI.rejectWithValue(e.response?.data || e.message);

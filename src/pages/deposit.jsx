@@ -6,6 +6,9 @@ const Deposit = ({ user }) => {
   const [phoneNo, setPhoneNo] = useState('');
   const [amount, setAmount] = useState('');
   const [method, setMethod] = useState('');
+  const [image, setImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
   const dispatch = useDispatch();
   const { items: deposits, loading, error } = useSelector(state => state.deposits);
 
@@ -20,13 +23,16 @@ const Deposit = ({ user }) => {
     if (user && phoneNo && amount && method) {
       dispatch(createDeposit({ 
         supabaseId: user.id, 
-        phoneNo: parseInt(phoneNo), 
+        phoneNo: parseInt(phoneNo, 10), 
         amount: parseFloat(amount), 
-        method 
+        method,
+        image,
       }));
       setPhoneNo('');
       setAmount('');
       setMethod('');
+      setImage(null);
+      setPreviewUrl('');
     }
   };
 
@@ -74,6 +80,25 @@ const Deposit = ({ user }) => {
             <option value="crypto">Cryptocurrency</option>
           </select>
         </div>
+        <div className="form-group">
+          <label htmlFor="deposit-image">Attach Receipt (optional)</label>
+          <input
+            type="file"
+            id="deposit-image"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files?.[0] || null;
+              setImage(file);
+              setPreviewUrl(file ? URL.createObjectURL(file) : '');
+            }}
+          />
+        </div>
+        {previewUrl && (
+          <div className="deposit-preview-wrapper">
+            <p className="deposit-preview-label">Preview:</p>
+            <img src={previewUrl} alt="Deposit preview" className="deposit-preview-image" />
+          </div>
+        )}
         {error && <p className="error">{typeof error === 'string' ? error : error.message || 'An error occurred'}</p>}
         <button type="submit" className="btn" disabled={loading || !user}>
           {loading ? 'Depositing...' : 'Deposit'}
@@ -89,6 +114,16 @@ const Deposit = ({ user }) => {
             .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
             .map(deposit => (
             <div key={deposit._id} className="deposit-item">
+              {deposit.image && (
+                <div className="deposit-image-wrapper">
+                  <img
+                    src={deposit.image}
+                    alt="Deposit"
+                    className="deposit-image"
+                    onClick={() => setSelectedImage(deposit.image)}
+                  />
+                </div>
+              )}
               <p><strong>Phone:</strong> {deposit.phoneNo}</p>
               <p><strong>Amount:</strong> ${deposit.amount}</p>
               <p><strong>Method:</strong> {deposit.method}</p>
@@ -96,6 +131,21 @@ const Deposit = ({ user }) => {
               <p><strong>Date:</strong> {new Date(deposit.createdAt).toLocaleDateString()}</p>
             </div>
           ))}
+        </div>
+      )}
+
+      {selectedImage && (
+        <div className="image-modal" onClick={() => setSelectedImage(null)}>
+          <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="image-modal-close"
+              onClick={() => setSelectedImage(null)}
+            >
+              &times;
+            </button>
+            <img src={selectedImage} alt="Deposit" className="image-modal-img" />
+          </div>
         </div>
       )}
     </div>
