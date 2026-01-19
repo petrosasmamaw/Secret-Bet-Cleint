@@ -25,7 +25,25 @@ export const fetchBetsBySupabaseId = createAsyncThunk('bets/fetchBySupabase', as
 
 export const createBet = createAsyncThunk('bets/create', async (payload, thunkAPI) => {
   try {
-    const res = await axios.post(BETS_URL, payload);
+    const formData = new FormData();
+
+    // Append basic fields
+    formData.append('supabaseId', payload.supabaseId);
+    formData.append('amount', payload.amount);
+    if (payload.possibleWin !== undefined) formData.append('possibleWin', payload.possibleWin);
+    if (payload.isAccepted !== undefined) formData.append('isAccepted', payload.isAccepted);
+    if (payload.status !== undefined) formData.append('status', payload.status);
+
+    // Append 1-5 image files under field name "images"
+    if (Array.isArray(payload.images)) {
+      payload.images.slice(0, 5).forEach(file => {
+        if (file) formData.append('images', file);
+      });
+    }
+
+    const res = await axios.post(BETS_URL, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
     return res.data;
   } catch (e) {
     return thunkAPI.rejectWithValue(e.response?.data || e.message);

@@ -6,10 +6,10 @@ export default function Bets({ user }) {
   const dispatch = useDispatch();
   const { items: bets, loading, error } = useSelector(s => s.bets);
   const [formData, setFormData] = useState({
-    prediction: '',
     amount: '',
     isAccepted: false,
-    status: 'pending'
+    status: 'pending',
+    images: []
   });
 
   useEffect(() => {
@@ -19,11 +19,21 @@ export default function Bets({ user }) {
   }, [dispatch, user]);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value
-    });
+    const { name, value, type, checked, files } = e.target;
+
+    if (name === 'images') {
+      const selectedFiles = Array.from(files || []).slice(0, 5);
+      setFormData(prev => ({
+        ...prev,
+        images: selectedFiles,
+      }));
+      return;
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -37,10 +47,10 @@ export default function Bets({ user }) {
       };
       dispatch(createBet(payload));
       setFormData({
-        prediction: '',
         amount: '',
         isAccepted: false,
-        status: 'pending'
+        status: 'pending',
+        images: []
       });
     }
   };
@@ -53,16 +63,17 @@ export default function Bets({ user }) {
         <h2>Create New Bet</h2>
         <form onSubmit={handleSubmit} className="bet-form">
           <div className="form-group">
-            <label htmlFor="prediction">Prediction</label>
-            <textarea
-              id="prediction"
-              name="prediction"
-              value={formData.prediction}
+            <label htmlFor="images">Attach Images (1-5)</label>
+            <input
+              type="file"
+              id="images"
+              name="images"
+              accept="image/*"
+              multiple
               onChange={handleChange}
-              placeholder="Enter your prediction"
               required
-              rows="4"
             />
+            <small className="input-help">You can upload between 1 and 5 images.</small>
           </div>
           <div className="form-group">
             <label htmlFor="amount">Amount</label>
@@ -93,7 +104,18 @@ export default function Bets({ user }) {
             .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
             .map(bet => (
             <div key={bet._id || bet.id} className="bet-item">
-              <p><strong>Prediction:</strong> {bet.prediction}</p>
+              {Array.isArray(bet.images) && bet.images.length > 0 && (
+                <div className="bet-images">
+                  {bet.images.map((imgUrl, idx) => (
+                    <img
+                      key={idx}
+                      src={imgUrl}
+                      alt={`Bet ${bet._id || bet.id} image ${idx + 1}`}
+                      className="bet-image"
+                    />
+                  ))}
+                </div>
+              )}
               <p><strong>Amount:</strong> ${bet.amount}</p>
               <p><strong>Possible Win:</strong> ${bet.possibleWin}</p>
               <p><strong>Accepted:</strong> {bet.isAccepted ? 'Yes' : 'No'}</p>
