@@ -63,7 +63,7 @@ export default function Bets({ user }) {
         <h2>Create New Bet</h2>
         <form onSubmit={handleSubmit} className="bet-form">
           <div className="form-group">
-            <label htmlFor="images">Attach Images (1-5)</label>
+            <label htmlFor="images">Attach Images (1-5) screen shot of the bet</label>
             <input
               type="file"
               id="images"
@@ -73,7 +73,7 @@ export default function Bets({ user }) {
               onChange={handleChange}
               required
             />
-            <small className="input-help">You can upload between 1 and 5 images.</small>
+            <small className="input-help">You can upload between 1 and 5 images. screen shot of image </small>
           </div>
           <div className="form-group">
             <label htmlFor="amount">Amount</label>
