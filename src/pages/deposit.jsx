@@ -82,7 +82,7 @@ const Deposit = ({ user }) => {
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="deposit-image">Attach Receipt (optional)</label>
+          <label htmlFor="deposit-image">Attach Receipt Screen shot </label>
           <input
             type="file"
             id="deposit-image"
