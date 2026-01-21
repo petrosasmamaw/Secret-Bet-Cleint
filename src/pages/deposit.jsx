@@ -40,6 +40,7 @@ const Deposit = ({ user }) => {
     <div className="page">
       <h1 className="page-header">Deposit <span>Funds</span></h1>
       <p className="page-description">Make a deposit to your account.</p>
+      <p className="page-description">Please fill out the form below correctly to deposit funds.</p>
       <form onSubmit={handleSubmit} className="deposit-form">
         <div className="form-group">
           <label htmlFor="phoneNo">Phone Number</label>
