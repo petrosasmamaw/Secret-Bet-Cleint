@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../Slices/authSlice';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -19,7 +20,7 @@ const Register = () => {
   return (
     <div className="page">
       <h1 className="page-header">Register <span>Now</span></h1>
-      <p className="page-description">Create a new account to get started.</p>
+      <p className="page-description">Create a new account. </p>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -50,7 +51,9 @@ const Register = () => {
         <button type="submit" className="btn" disabled={loading}>
           {loading ? 'Registering...' : 'Register'}
         </button>
+          <p className="page-description">Go to your email and confirm our email, then return to the login page and login by correct email and password.</p>
       </form>
+      <p className="auth-link">Already have an account? <Link to="/login">Login here</Link></p>
     </div>
   );
 };

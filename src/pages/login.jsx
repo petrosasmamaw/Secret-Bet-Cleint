@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../Slices/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -50,11 +50,11 @@ const Login = () => {
             required
           />
         </div>
-        {error && <p className="error">{typeof error === 'string' ? error : error.message || 'An error occurred'}</p>}
         <button type="submit" className="btn" disabled={loading}>
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
+      <p className="auth-link">Don't have an account? <Link to="/register">Register here</Link></p>
     </div>
   );
 };

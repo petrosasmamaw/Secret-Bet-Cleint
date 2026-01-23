@@ -61,6 +61,12 @@ body{font-family:'Montserrat',sans-serif;background:linear-gradient(135deg,#1e3c
 .form-group textarea:focus{outline:none;box-shadow:0 0 0 3px rgba(0,123,255,.5);}
 .form-group select{width:100%;padding:.8rem;border:none;border-radius:8px;background:rgba(255,255,255,.9);color:#333;font-size:1rem;}
 .form-group select:focus{outline:none;box-shadow:0 0 0 3px rgba(0,123,255,.5);}
+
+/* Auth link styles */
+.auth-link{text-align:center;margin-top:1rem;color:#fff;font-size:1rem;}
+.auth-link a{color:#00d4ff;text-decoration:none;font-weight:bold;}
+.auth-link a:hover{text-decoration:underline;}
+
 .deposit-form{margin-bottom:2rem;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:15px;padding:2rem;box-shadow:0 8px 32px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.2);}
 .deposits-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:2rem;}
 .deposit-item{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);padding:1.5rem;border-radius:12px;border:1px solid rgba(255,255,255,.2);box-shadow:0 4px 16px rgba(0,0,0,.2);transition:transform .3s ease,box-shadow .3s ease;}
