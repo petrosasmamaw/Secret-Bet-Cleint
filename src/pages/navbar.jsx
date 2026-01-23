@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../Slices/authSlice';
@@ -7,7 +7,6 @@ import { fetchBalancesBySupabaseId } from '../Slices/balanceSlice';
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
   const balance = useSelector(state => state.balances.items.length > 0 ? state.balances.items[0].balance : 0);
 
   useEffect(() => {
@@ -24,17 +23,7 @@ const Navbar = ({ user }) => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">Secret Bet</div>
-      <button
-        className="navbar-toggle"
-        type="button"
-        aria-label="Toggle navigation"
-        onClick={() => setMenuOpen(prev => !prev)}
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>
+      <div className="navbar-links">
         {user ? (
           <>
             <Link to="/bets" className="nav-link">Bets</Link>
