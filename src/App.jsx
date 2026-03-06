@@ -11,6 +11,7 @@ import Withdraw from './pages/withdraw';
 import Navbar from './pages/navbar';
 import Deposit from './pages/deposit';
 import Footer from './pages/footer';
+import Football from './pages/football';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,10 +26,12 @@ const App = () => {
       <Navbar user={user} />
       <main className="main-content">
         <Routes>
+          <Route path="/football" element={<Football user={user} />} />
           {user ? (
             <>
               <Route path="/" element={<Bets user={user} />} />
               <Route path="/bets" element={<Bets user={user} />} />
+              <Route path="/football" element={<Football user={user} />} />
               <Route path="/profile" element={<Profile user={user} />} />
               <Route path="/withdraw" element={<Withdraw user={user} />} />
               <Route path="/deposit" element={<Deposit user={user} />} />

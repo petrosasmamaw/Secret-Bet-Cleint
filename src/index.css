@@ -148,3 +148,24 @@ body{font-family:'Montserrat',sans-serif;background:linear-gradient(135deg,#1e3c
 .page-header{color:#28a745;font-family:'Montserrat',sans-serif;font-size:2.5rem;font-weight:bold;text-align:center;margin-bottom:1rem;text-shadow:2px 2px 4px rgba(0,0,0,.3);}
 .page-header span{color:#007bff;}
 .page-description{color:#fff;font-size:1.2rem;text-align:center;margin-bottom:2rem;font-style:italic;opacity:.9;}
+
+/* Football new styles */
+.football-page-container{max-width:1100px;margin:0 auto;padding:2rem 1rem;display:flex;flex-direction:column;gap:1rem}
+.football-title{display:flex;flex-direction:column;align-items:center;gap:.25rem}
+.football-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem}
+.football-card{background:linear-gradient(180deg,rgba(6,16,32,.6),rgba(3,44,60,.6));border-radius:12px;padding:1rem;border:1px solid rgba(255,255,255,.04);box-shadow:0 10px 30px rgba(2,6,23,.6);transition:transform .18s ease,box-shadow .18s ease;overflow:hidden}
+.football-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(2,6,23,.7)}
+.football-meta{display:flex;justify-content:space-between;align-items:center;color:rgba(255,255,255,.8);font-weight:700;margin-bottom:.6rem}
+.football-competition{font-size:.9rem;color:#9ef0d4}
+.football-date{font-size:.8rem;color:rgba(255,255,255,.75)}
+.football-body{display:flex;align-items:center;justify-content:space-between;padding:.8rem;border-radius:8px;background:linear-gradient(90deg,rgba(255,255,255,.01),rgba(255,255,255,.005));gap:.5rem}
+.football-team{display:flex;flex-direction:column;align-items:center;gap:.2rem;flex:1}
+.football-team-name{font-weight:800;color:#fff;text-align:center;font-size:1rem}
+.football-score{font-size:1.4rem;font-weight:900;color:#5ef6c9;flex:0 0 80px;text-align:center}
+.football-odds{margin-top:.75rem;display:flex;flex-wrap:wrap;gap:.5rem}
+.football-odd{background:rgba(255,255,255,.03);padding:.35rem .6rem;border-radius:6px;color:#fff;font-weight:700;font-size:.9rem}
+
+@media(max-width:600px){
+  .football-body{flex-direction:column;gap:.6rem}
+  .football-score{font-size:1.2rem}
+}

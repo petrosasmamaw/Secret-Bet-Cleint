@@ -6,6 +6,7 @@ import depositReducer from "./Slices/depositSlice";
 import betReducer from "./Slices/betSlice";
 import withdrawalReducer from "./Slices/withdrawalSlice";
 import balanceReducer from "./Slices/balanceSlice";
+import footballReducer from "./Slices/footballSlice";
 
 const store = configureStore({
     reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
         bets: betReducer,
         withdrawals: withdrawalReducer,
         balances: balanceReducer,
+        football: footballReducer,
     },
 });
     
